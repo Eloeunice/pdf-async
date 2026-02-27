@@ -1,5 +1,5 @@
 import express from "express";
-import { emailQueue, sendEmail} from "./queue";
+import { addJobs} from "./queue";
 import prisma from "../../config/prisma.client";
 
 const app = express()
@@ -20,7 +20,7 @@ app.post("/send=email", async (req, res) => {
             status: "PENDING"
         }
     })
-    const jobId = await sendEmail({ to, subject, body })
+    const jobId = await addJobs({ to, subject, body })
     res.send({ message: "Email sent", jobId })
 })
 
